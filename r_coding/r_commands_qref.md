@@ -1,195 +1,339 @@
+# R Commands Quick Reference
 
-**Operators:**
-`<-`: assignment operator - used to assign variables
-`<<-`: super assignment operator: used to assign a value to an object to a parent environment
-`#`: comment; all after that line is ignored
-`=`: Also, assigns, but only used inside functions
-`?`: gets help with a function
-`!`: not -- logical operator
-`&`: and -- logical operator, vectorized
-`&&`: and, not vectorized, only first element
-`|`: or -- logical operator, vectorized
-`||`: or, not vectorized, only first element
-`==`: equal to
-`>=`:
-`<=`:
-`!=`:
-`<`:
-`>`:
-`%%`: modulus operator ex. `(7 %% 4)` returns `3` (the remainder of `7 / 3`)
-`::` : the most explicit base R solution for calling package functions i.e.- `package::function()`
+[[r_coding|← Back to R Coding Reference]]
 
+## Table of Contents
 
-**Subset Operators**
-`[`: always returns an object of the same class as the original
-`[[` : is used to extract a single element of a list or a data frame, maybe a different class
-`$`:  used to extract an element of a list or data frame by name
+- [Operators](#operators)
+- [Subset Operators](#subset-operators)
+- [Statistics Functions](#statistics-functions)
+- [File Handling](#file-handling)
+- [Data Handling](#data-handling)
+- [Debugging](#debugging)
+- [Logical Functions](#logical-functions)
+- [Control Structures](#control-structures)
+- [Loop Functions](#loop-functions)
+- [Sequence Helpers](#sequence-helpers)
+- [Type Checking](#type-checking)
+- [External Connections](#external-connections)
+- [Useful Packages](#useful-packages)
+- [Optimization](#optimization)
+- [Dates and Times](#dates-and-times)
+- [Error Handling](#error-handling)
+- [Random Numbers](#random-numbers)
+- [Profiling](#profiling)
 
-**Statistics functions**
-`cor()`:
-`var()`:
-`cov()`:
-`lm()`:
-`sd()`:
-`mean()`:
-`median()`:
-`sum()`:
-`floor()`: rounds a numeric value **down** to the nearest integer that is less than or equal to the argument
-`summary()`:
-`rowSums()`:
-`rowMeans()`:
-`colSums()`:
-`colMeans()`:
+---
 
+## Operators
 
-**File Handling**
-`ls()`: list all elements within the R environment
-`dir()`:  lists all files in a directory
-`dir.create()`: create directories
+| Operator | Description |
+|----------|-------------|
+| `<-` | Assignment operator for creating variables |
+| `<<-` | Super assignment - assigns to a variable in a parent environment |
+| `=` | Assignment used inside function arguments |
+| `#` | Comment - everything after is ignored |
+| `?` | Get help documentation for a function |
+| `::` | Call a function from a specific package explicitly |
 
-**Data Handling**
-`c()`: combine or concatenate - builds vectors
-`factor()`:
-`matrix(), is.matrix(), as.matrix()`:
-`list()`:
-`paste()`:
-`print()`:
-`nrow()`:
-`ncol()`:
-`data.frame()`:
-`read.csv()`:
-`read.table()`:
-`name()`:
-`dump()`:
-`dput()`:
-`source()`:
-`dget()`:
-`readlines()`:
-`writelines()`:
-`head()`:
-`dim()`:
-`attributes()`:
-`length()`:
-`cbind()`:
-`rbind()`:
-`data.frame()`:
-`colnames()`:
-`rownames()`:
-`complete.cases()`:  returns all the rows that are complete without NA
-`subset()`:
-`sample()`: random sampling
-`unclass()`: removes the class attribute of an object, effectively converting it to its underlying structure. This is useful for inspecting or manipulating objects without their class-specific behaviors.
-`args()`: input is a function and it will return the arguments for the function
-`list()`: creates a **list**, which is a flexible data structure that can hold elements of different types
+### Logical Operators
 
-**Debugging**
-`traceback()`:
-`debug()`:
-`browser()`:
-`trace()`:
-`recover()`:
+| Operator | Description |
+|----------|-------------|
+| `!` | NOT - negates a logical value |
+| `&` | AND - vectorized, compares element by element |
+| `&&` | AND - not vectorized, only compares first elements |
+| `\|` | OR - vectorized, compares element by element |
+| `\|\|` | OR - not vectorized, only compares first elements |
 
-**Logical Functions**
-`isTRUE()`: evaluates if an argument is true
-`identical()`: returns `TRUE` if both arguments are identical
-`xor()`: input two arguments, exclusive or logic returns a boolean output
-`which()`: 
-`any()`: return TRUE if one or more of the elements in the logical vector is TRUE
-`all()`: return TRUE if every element in the logical vector is TRUE
+### Comparison Operators
 
-**Control Structures**
-[[r_control_structures]]
-`if, else`: testing a condition 
-`for`: execute a loop for a fixed number of times
-`while`: execute a loop while a condition is true
-`repeat`: execute an infinite loop
-`break`: break the execution of a loop
-`next`: skip an iteration of a loop
-`return`: exit a function
+| Operator | Description |
+|----------|-------------|
+| `==` | Equal to |
+| `!=` | Not equal to |
+| `<` | Less than |
+| `>` | Greater than |
+| `<=` | Less than or equal to |
+| `>=` | Greater than or equal to |
+| `%%` | Modulus - returns the remainder of division |
 
-**Loop Functions**
-`lapply`: 'list apply' Loop over a list and evaluate a function on each element
-`sapply`: 'simplified apply' same as `lapply()`, but tries to simplify the result
-`tapply()`: applies a function to groups of values based on a factor/category. "table apply"
-`mapply()`: is "multivariate apply" - it applies a function to MULTIPLE vectors/lists in parallel
-`apply()`: apply a functions over the margins of an array
-`vapply()`: like sapply but you must specify what output type you expect. 
-`split()`:
+---
 
+## Subset Operators
 
-`seq_len()`:
-`seq_along()`:
-`invisible()`: returns in a function do not get printed to the screen
+| Operator | Description |
+|----------|-------------|
+| `[` | Extracts elements, always returns same class as original |
+| `[[` | Extracts a single element from list or data frame, may return different class |
+| `$` | Extracts element by name from list or data frame |
 
+---
 
-**Type Checking**
-`class()`: Returns the general class of an object (e.g., "numeric", "data.frame")
-`typeof()`: Returns the specific low-level data type (e.g., "double", "integer")
-`identical()`: checks to see if two objects are identical, returns TRUE or FALSE
-`is.*()`: A family of functions (e.g., `is.numeric()`, `is.character()`, `is.logical()`) that return a logical `TRUE` or `FALSE` value.
-	`is.na()`:
-	`is.nan()`:
-	`is.null()`:
-`str()`: Provides a compact display of an object's internal structure, including types of components (especially useful for data frames)
-	**Packages for typechecking:** `rlang`, `checkmate`
+## Statistics Functions
 
+| Function | Description |
+|----------|-------------|
+| `mean()` | Calculate the arithmetic mean |
+| `median()` | Find the middle value |
+| `sd()` | Calculate standard deviation |
+| `var()` | Calculate variance |
+| `sum()` | Add up all values |
+| `cor()` | Calculate correlation between variables |
+| `cov()` | Calculate covariance between variables |
+| `lm()` | Fit a linear regression model |
+| `summary()` | Get summary statistics or model summaries |
+| `floor()` | Round down to nearest integer |
+| `rowSums()` | Sum values across each row |
+| `rowMeans()` | Average values across each row |
+| `colSums()` | Sum values down each column |
+| `colMeans()` | Average values down each column |
 
-**Interfaces to the outside world**
-`file()`:  opens a connection to a file
-`gzfile()`: opens a connection to a compressed file gzip (.gz)
-`bzfile():` opens a connection to a compressed file bzip (.bz2)
-`url()`: opens a connection to a webpage
+---
 
-**Packages to look into**
-`httr2`: most modern for web and API calls, user friendly and readable code
-`curl`: more modern package to handle url and web
-`Rcurl`: used for handling url and web work
+## File Handling
 
-**Optimization in R**
-`optim()`:
-`nim()`:
-`optimize()`:
+| Function | Description |
+|----------|-------------|
+| `ls()` | List all objects in the current R environment |
+| `dir()` | List all files in a directory |
+| `dir.create()` | Create a new directory |
 
-[[r_dates_and_times]]
-`as.Date()`: Converts a character string or numeric value to a `Date` object (e.g., `as.Date("2025-11-14")`).
-`weekdays()`:  Extracts the day of the week from a `Date` or `POSIXt` object (e.g., `weekdays(as.Date("2025-11-14"))` returns `"Friday"`).
-`months()`: Extracts the month name from a `Date` or `POSIXt` object (e.g., `months(as.Date("2025-11-14"))` returns `"November"`).
-`quarters()`: Extracts the quarter of the year from a `Date` or `POSIXt` object (e.g., `quarters(as.Date("2025-11-14"))` returns `"Q4"`).
-`Sys.time()`: Returns the current system date and time as a `POSIXct` object.
-`as.POSIXct()`: Converts a character string or `Date` to a `POSIXct` object (e.g., `as.POSIXct("2025-11-14 21:24:01")`).
-`as.POSIClt()`: Converts a character string or `Date` to a `POSIXlt` object, which stores date-time as a list with components like year, month, etc.
-`strptime()`: Parses a character string into a `POSIXlt` object based on a specified format (e.g., `strptime("14-11-2025", format = "%d-%m-%Y")`).
+---
 
-**Something's Wrong**
-`message`: execution continues
-`warning`: execution continues
-`error`: fatal problem, execution stops
-`condition`: coders can create their own conditions for when something happens in the code
+## Data Handling
 
+| Function | Description |
+|----------|-------------|
+| `c()` | Combine values into a vector |
+| `factor()` | Create a categorical variable with defined levels |
+| `matrix()` | Create a two-dimensional array |
+| `is.matrix()` | Check if object is a matrix |
+| `as.matrix()` | Convert object to matrix |
+| `list()` | Create a collection that can hold different data types |
+| `data.frame()` | Create a table-like structure with rows and columns |
+| `paste()` | Concatenate strings together |
+| `print()` | Display output to the console |
+| `nrow()` | Count the number of rows |
+| `ncol()` | Count the number of columns |
+| `dim()` | Get dimensions (rows and columns) |
+| `length()` | Get the number of elements |
+| `head()` | View the first few rows |
+| `attributes()` | Get or set object attributes like names and dimensions |
+| `names()` | Get or set names of elements |
+| `colnames()` | Get or set column names |
+| `rownames()` | Get or set row names |
+| `cbind()` | Combine objects by columns (side by side) |
+| `rbind()` | Combine objects by rows (stacking) |
+| `read.csv()` | Read data from a CSV file |
+| `read.table()` | Read data from a text file |
+| `source()` | Run R code from an external file |
+| `dump()` | Write R objects to a file in text format |
+| `dput()` | Write a single R object to a file in text format |
+| `dget()` | Read an object written by dput |
+| `readLines()` | Read lines of text from a file |
+| `writeLines()` | Write lines of text to a file |
+| `complete.cases()` | Find rows with no missing values |
+| `subset()` | Extract rows or columns meeting conditions |
+| `sample()` | Take a random sample from data |
+| `unclass()` | Remove class attribute to see underlying structure |
+| `args()` | Show the arguments a function accepts |
 
-**Generating random numbers**
-`rnorm()`:
-`dnorm()`:
-`pnorm()`:
-`qnorm()`:
+---
 
-`rpois()`:
-`dpois()`:
-`ppois()`:
-`qpois()`:
+## Debugging
 
-`rgamma()`:
-`dgamma()`:
-`pgamma()`:
-`qgamma()`:
-`set.seed()`:
-`sample()`:
+See also: [[r_coding#Related Topics|Error Handling]]
 
-**Profiling**
-Profiling and performance analysis is a systematic way to examine how much time is spent in different parts of a program
-Useful when optimizing code
+| Function | Description |
+|----------|-------------|
+| `traceback()` | Show the call stack after an error occurs |
+| `debug()` | Step through a function line by line |
+| `browser()` | Pause execution and enter interactive debugging mode |
+| `trace()` | Insert debugging code into a function |
+| `recover()` | Choose where to resume after an error |
 
-`system.time()`:
-`Rprof()`:
-`summaryRprof()`:
+---
 
+## Logical Functions
+
+| Function | Description |
+|----------|-------------|
+| `isTRUE()` | Check if argument evaluates to TRUE |
+| `identical()` | Check if two objects are exactly the same |
+| `xor()` | Exclusive OR - TRUE if exactly one argument is TRUE |
+| `which()` | Find positions of TRUE values in a logical vector |
+| `any()` | TRUE if at least one element is TRUE |
+| `all()` | TRUE if every element is TRUE |
+
+---
+
+## Control Structures
+
+See [[r_control_structures]] for detailed explanations and examples.
+
+| Keyword | Description |
+|---------|-------------|
+| `if, else` | Execute code based on a condition |
+| `for` | Repeat code a fixed number of times |
+| `while` | Repeat code while a condition is true |
+| `repeat` | Repeat code indefinitely until break |
+| `break` | Exit a loop immediately |
+| `next` | Skip to the next iteration of a loop |
+| `return` | Exit a function and return a value |
+
+---
+
+## Loop Functions
+
+These functions apply operations across data structures without explicit loops.
+
+| Function | Description |
+|----------|-------------|
+| `lapply()` | Apply a function to each element of a list, return a list |
+| `sapply()` | Like lapply but simplifies result to vector or matrix if possible |
+| `vapply()` | Like sapply but you specify the expected output type |
+| `tapply()` | Apply a function to groups defined by a factor |
+| `mapply()` | Apply a function to multiple vectors/lists in parallel |
+| `apply()` | Apply a function across rows or columns of a matrix |
+| `split()` | Divide data into groups based on a factor |
+
+---
+
+## Sequence Helpers
+
+| Function | Description |
+|----------|-------------|
+| `seq_len()` | Generate sequence from 1 to n |
+| `seq_along()` | Generate sequence matching length of an object |
+| `invisible()` | Return a value without printing it |
+
+---
+
+## Type Checking
+
+| Function | Description |
+|----------|-------------|
+| `class()` | Get the general class of an object |
+| `typeof()` | Get the low-level storage type |
+| `str()` | Display compact structure of an object |
+| `identical()` | Check if two objects are exactly the same |
+| `is.na()` | Check for missing values (NA) |
+| `is.nan()` | Check for Not a Number values |
+| `is.null()` | Check if object is NULL |
+| `is.numeric()` | Check if object is numeric |
+| `is.character()` | Check if object is character/text |
+| `is.logical()` | Check if object is logical (TRUE/FALSE) |
+
+**Packages for type checking:** `rlang`, `checkmate`
+
+---
+
+## External Connections
+
+| Function | Description |
+|----------|-------------|
+| `file()` | Open a connection to a file |
+| `gzfile()` | Open a connection to a gzip compressed file |
+| `bzfile()` | Open a connection to a bzip2 compressed file |
+| `url()` | Open a connection to a webpage |
+
+---
+
+## Useful Packages
+
+| Package | Description |
+|---------|-------------|
+| `httr2` | Modern, user-friendly package for web and API calls |
+| `curl` | Lower-level package for URL and web operations |
+| `RCurl` | Legacy package for URL and web work |
+
+---
+
+## Optimization
+
+| Function | Description |
+|----------|-------------|
+| `optim()` | General-purpose optimization for finding minimum/maximum |
+| `nlm()` | Non-linear minimization |
+| `optimize()` | One-dimensional optimization |
+
+---
+
+## Dates and Times
+
+See [[r_dates_and_times]] for detailed explanations.
+
+| Function | Description |
+|----------|-------------|
+| `as.Date()` | Convert to a Date object |
+| `Sys.time()` | Get the current system date and time |
+| `as.POSIXct()` | Convert to POSIXct (stores as seconds since 1970) |
+| `as.POSIXlt()` | Convert to POSIXlt (stores as list with components) |
+| `strptime()` | Parse a string into a date-time using a format |
+| `weekdays()` | Extract the day of the week |
+| `months()` | Extract the month name |
+| `quarters()` | Extract the quarter of the year |
+
+---
+
+## Error Handling
+
+| Type | Description |
+|------|-------------|
+| `message` | Informational message, execution continues |
+| `warning` | Something unexpected, execution continues |
+| `error` | Fatal problem, execution stops |
+| `condition` | Custom conditions you can define for specific situations |
+
+---
+
+## Random Numbers
+
+Functions follow the pattern: `r` (random), `d` (density), `p` (cumulative probability), `q` (quantile).
+
+### Normal Distribution
+
+| Function | Description |
+|----------|-------------|
+| `rnorm()` | Generate random numbers from normal distribution |
+| `dnorm()` | Get the density (height of curve) at a value |
+| `pnorm()` | Get cumulative probability up to a value |
+| `qnorm()` | Get value for a given probability |
+
+### Poisson Distribution
+
+| Function | Description |
+|----------|-------------|
+| `rpois()` | Generate random counts from Poisson distribution |
+| `dpois()` | Get probability of a specific count |
+| `ppois()` | Get cumulative probability up to a count |
+| `qpois()` | Get count for a given probability |
+
+### Gamma Distribution
+
+| Function | Description |
+|----------|-------------|
+| `rgamma()` | Generate random numbers from gamma distribution |
+| `dgamma()` | Get the density at a value |
+| `pgamma()` | Get cumulative probability up to a value |
+| `qgamma()` | Get value for a given probability |
+
+### Random Seed
+
+| Function | Description |
+|----------|-------------|
+| `set.seed()` | Set random seed for reproducible results |
+| `sample()` | Take random samples from data |
+
+---
+
+## Profiling
+
+Profiling helps you find which parts of your code are slowest.
+
+| Function | Description |
+|----------|-------------|
+| `system.time()` | Measure how long an expression takes to run |
+| `Rprof()` | Start profiling to record where time is spent |
+| `summaryRprof()` | Summarize profiling results |
