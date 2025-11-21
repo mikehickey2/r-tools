@@ -1,0 +1,5 @@
+[[r_commands_qref]]
+[[r_control_structures]]
+[[r_coding_standards]]
+[[r_functions]]
+[[r_dates_and_times]]
